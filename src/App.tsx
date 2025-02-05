@@ -30,7 +30,10 @@ export default function App() {
         {isPending ? "Sending..." : "Subscribe"}
       </button>
       {state.success && (
-        <p className="text-emerald-600">Successfully subscribed!</p>
+        <p className="text-emerald-600">
+          Successfully subscribed{" "}
+          <strong className="font-bold">{state.email}</strong>.
+        </p>
       )}
     </form>
   );

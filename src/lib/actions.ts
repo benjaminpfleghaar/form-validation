@@ -36,5 +36,5 @@ export async function action(
   // Add a fake delay to make waiting noticeable
   await new Promise<void>((resolve) => setTimeout(resolve, 2000));
 
-  return { success: true };
+  return { email: validatedFormField.data.email, success: true };
 }
