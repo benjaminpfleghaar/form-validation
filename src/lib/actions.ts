@@ -11,9 +11,9 @@ type FormState = {
 const FormSchema = z.object({
   email: z
     .string()
-    .trim()
     .nonempty("E-Mail address is required.")
-    .email("Invalid E-Mail address."),
+    .email("Invalid E-Mail address.")
+    .trim(),
 });
 
 export async function action(
