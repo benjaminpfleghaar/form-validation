@@ -1,15 +1,40 @@
 "use server";
 
-type State = {
+import { z } from "zod";
+
+type FormState = {
   email?: string;
-  message?: string;
+  error?: string[];
+  success?: boolean;
 };
 
-export async function action(_: State, formData: FormData): Promise<State> {
-  const email = formData.get("email") as string;
+const FormSchema = z.object({
+  email: z
+    .string()
+    .trim()
+    .nonempty("E-Mail address is required.")
+    .email("Invalid E-Mail address."),
+});
 
-  // Add Promise for fake delay of 2s
+export async function action(
+  _: FormState,
+  formData: FormData,
+): Promise<FormState> {
+  const email = formData.get("email") as string;
+  const validatedFormField = FormSchema.safeParse({
+    email: email,
+  });
+
+  if (!validatedFormField.success) {
+    return {
+      email: email,
+      error: validatedFormField.error.flatten().fieldErrors.email,
+      success: false,
+    };
+  }
+
+  // Add a fake delay to make waiting noticeable
   await new Promise<void>((resolve) => setTimeout(resolve, 2000));
 
-  return { message: "success", email: email };
+  return { success: true };
 }

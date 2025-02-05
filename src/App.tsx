@@ -11,14 +11,16 @@ export default function App() {
           E-Mail
         </label>
         <input
-          type="email"
+          type="text"
           className="rounded-sm border border-gray-300 p-2"
           id="email"
           name="email"
+          defaultValue={!state.success && state.email ? state.email : ""}
           placeholder="john@doe.com"
-          defaultValue={state.email}
-          required
         />
+        {!state.success && state.error && (
+          <p className="text-red-600">{state.error[0]}</p>
+        )}
       </div>
       <button
         type="submit"
@@ -27,8 +29,8 @@ export default function App() {
       >
         {isPending ? "Sending..." : "Subscribe"}
       </button>
-      {state.message === "success" && (
-        <p className="text-emerald-600">Successfully subscribed</p>
+      {state.success && (
+        <p className="text-emerald-600">Successfully subscribed!</p>
       )}
     </form>
   );
