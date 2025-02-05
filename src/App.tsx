@@ -15,11 +15,14 @@ export default function App() {
           className="rounded-sm border border-gray-300 p-2"
           id="email"
           name="email"
+          aria-describedby="error"
           defaultValue={!state.success && state.email ? state.email : ""}
           placeholder="john@doe.com"
         />
         {!state.success && state.error && (
-          <p className="text-red-600">{state.error[0]}</p>
+          <p id="error" className="text-red-600">
+            {state.error[0]}
+          </p>
         )}
       </div>
       <button
